@@ -14,7 +14,7 @@ public class CorsConfig {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**") // Aplica a todos los endpoints
-                        .allowedOrigins("http://localhost:4200") // Angular dev server
+                        .allowedOrigins("http://localhost:4200","https://mish-one-frontend.vercel.app/") // Angular dev server
                         .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                         .allowedHeaders("*")
                         .allowCredentials(true); // Solo si usas cookies o auth con frontend
