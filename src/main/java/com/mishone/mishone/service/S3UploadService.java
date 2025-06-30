@@ -1,4 +1,4 @@
-package com.mishone.mishone.config;
+package com.mishone.mishone.service;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -9,7 +9,6 @@ import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 
 import java.io.File;
-import java.nio.file.Paths;
 
 @Slf4j
 @Service

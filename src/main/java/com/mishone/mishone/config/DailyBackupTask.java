@@ -1,5 +1,6 @@
 package com.mishone.mishone.config;
 
+import com.mishone.mishone.service.S3UploadService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Scheduled;
