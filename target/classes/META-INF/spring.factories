@@ -1,0 +1,3 @@
+org.springframework.context.ApplicationContextInitializer=\
+com.mishone.mishone.config.SQLiteS3Initializer
+
