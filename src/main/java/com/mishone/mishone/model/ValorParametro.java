@@ -18,6 +18,7 @@ public class ValorParametro {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_valor_parametro", updatable = false, nullable = false)
     private Integer idValorParametro;
 
     @ManyToOne

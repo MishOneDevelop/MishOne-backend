@@ -18,6 +18,7 @@ public class Proyecto {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_proyecto", updatable = false, nullable = false)
     private Integer idProyecto;
 
     @Column(nullable = false, length = 255)

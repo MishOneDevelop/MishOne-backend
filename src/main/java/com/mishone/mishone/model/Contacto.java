@@ -18,6 +18,7 @@ public class Contacto {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_contacto", updatable = false, nullable = false)
     private Integer idContacto;
 
     @Column(nullable = false, length = 255)

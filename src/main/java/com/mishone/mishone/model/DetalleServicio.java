@@ -15,6 +15,7 @@ public class DetalleServicio {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_detalle_servicio", updatable = false, nullable = false)
     private Integer idDetalleServicio;
 
     @ManyToOne

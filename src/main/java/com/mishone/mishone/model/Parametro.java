@@ -19,6 +19,7 @@ public class Parametro {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_parametro", updatable = false, nullable = false)
     private Integer idParametro;
 
     @Column(nullable = false, unique = true, length = 255)
