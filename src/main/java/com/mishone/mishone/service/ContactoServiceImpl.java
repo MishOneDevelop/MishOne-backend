@@ -4,7 +4,7 @@ import com.mishone.mishone.model.Contacto;
 import com.mishone.mishone.model.ValorParametro;
 import com.mishone.mishone.repository.ContactoRepository;
 import com.mishone.mishone.repository.ValorParametroRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -12,13 +12,11 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class ContactoServiceImpl implements ContactoService {
 
-    @Autowired
-    private ContactoRepository contactoRepository;
-
-    @Autowired
-    private ValorParametroRepository valorParametroRepository;
+    private final ContactoRepository contactoRepository;
+    private final ValorParametroRepository valorParametroRepository;
 
     @Override
     public List<Contacto> getAllContactos() {

@@ -3,7 +3,7 @@ package com.mishone.mishone.controller;
 
 import com.mishone.mishone.model.ValorParametro;
 import com.mishone.mishone.service.ValorParametroService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,10 +11,10 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/valores-parametros")
+@RequiredArgsConstructor
 public class ValorParametroController {
 
-    @Autowired
-    private ValorParametroService valorParametroService;
+    private final ValorParametroService valorParametroService;
 
     @GetMapping
     public ResponseEntity<List<ValorParametro>> getAllValoresParametros() {

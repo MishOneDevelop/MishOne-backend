@@ -2,7 +2,7 @@ package com.mishone.mishone.controller;
 
 import com.mishone.mishone.model.Servicio;
 import com.mishone.mishone.service.ServicioService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,10 +10,10 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/servicios")
+@RequiredArgsConstructor
 public class ServicioController {
 
-    @Autowired
-    private ServicioService servicioService;
+    private final ServicioService servicioService;
 
     @GetMapping
     public ResponseEntity<List<Servicio>> getAllServicios() {

@@ -2,17 +2,17 @@ package com.mishone.mishone.service;
 
 import com.mishone.mishone.model.ValorParametro;
 import com.mishone.mishone.repository.ValorParametroRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class ValorParametroServiceImpl implements ValorParametroService {
 
-    @Autowired
-    private ValorParametroRepository valorParametroRepository;
+    private final ValorParametroRepository valorParametroRepository;
 
     @Override
     public List<ValorParametro> getAllValoresParametros() {

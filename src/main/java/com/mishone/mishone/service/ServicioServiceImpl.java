@@ -2,17 +2,17 @@ package com.mishone.mishone.service;
 
 import com.mishone.mishone.model.Servicio;
 import com.mishone.mishone.repository.ServicioRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class ServicioServiceImpl implements ServicioService {
 
-    @Autowired
-    private ServicioRepository servicioRepository;
+    private final ServicioRepository servicioRepository;
 
     @Override
     public List<Servicio> getAllServicios() {
