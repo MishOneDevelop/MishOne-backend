@@ -2,7 +2,7 @@ package com.mishone.mishone.controller;
 
 import com.mishone.mishone.model.Contacto;
 import com.mishone.mishone.service.ContactoService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,10 +11,10 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/contactos")
+@RequiredArgsConstructor
 public class ContactoController {
 
-    @Autowired
-    private ContactoService contactoService;
+    private final ContactoService contactoService;
 
     @GetMapping
     public ResponseEntity<List<Contacto>> getAllContactos() {

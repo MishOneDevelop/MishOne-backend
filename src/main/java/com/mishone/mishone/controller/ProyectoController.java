@@ -2,7 +2,7 @@ package com.mishone.mishone.controller;
 
 import com.mishone.mishone.model.Proyecto;
 import com.mishone.mishone.service.ProyectoService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,10 +10,10 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/proyectos")
+@RequiredArgsConstructor
 public class ProyectoController {
 
-    @Autowired
-    private ProyectoService proyectoService;
+    private final ProyectoService proyectoService;
 
     @GetMapping
     public ResponseEntity<List<Proyecto>> getAllProyectos() {

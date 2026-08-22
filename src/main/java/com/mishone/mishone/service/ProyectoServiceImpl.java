@@ -2,17 +2,17 @@ package com.mishone.mishone.service;
 
 import com.mishone.mishone.model.Proyecto;
 import com.mishone.mishone.repository.ProyectoRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class ProyectoServiceImpl implements ProyectoService {
 
-    @Autowired
-    private ProyectoRepository proyectoRepository;
+    private final ProyectoRepository proyectoRepository;
 
     @Override
     public List<Proyecto> getAllProyectos() {

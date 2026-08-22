@@ -2,7 +2,7 @@ package com.mishone.mishone.controller;
 
 import com.mishone.mishone.model.Parametro;
 import com.mishone.mishone.service.ParametroService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,10 +10,10 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/parametros")
+@RequiredArgsConstructor
 public class ParametroController {
 
-    @Autowired
-    private ParametroService parametroService;
+    private final ParametroService parametroService;
 
     @GetMapping
     public ResponseEntity<List<Parametro>> getAllParametros() {

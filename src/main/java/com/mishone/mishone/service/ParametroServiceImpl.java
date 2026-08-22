@@ -2,17 +2,17 @@ package com.mishone.mishone.service;
 
 import com.mishone.mishone.model.Parametro;
 import com.mishone.mishone.repository.ParametroRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class ParametroServiceImpl implements ParametroService {
 
-    @Autowired
-    private ParametroRepository parametroRepository;
+    private final ParametroRepository parametroRepository;
 
     @Override
     public List<Parametro> getAllParametros() {

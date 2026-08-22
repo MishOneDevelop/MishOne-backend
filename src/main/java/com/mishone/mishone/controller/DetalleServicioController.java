@@ -3,7 +3,7 @@ package com.mishone.mishone.controller;
 import com.mishone.mishone.model.DetalleServicio;
 import com.mishone.mishone.service.DetalleServicioService;
 import com.mishone.mishone.service.ServicioService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,13 +11,11 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/detalle-servicios")
+@RequiredArgsConstructor
 public class DetalleServicioController {
 
-    @Autowired
-    private DetalleServicioService detalleServicioService;
-
-    @Autowired
-    private ServicioService servicioService;
+    private final DetalleServicioService detalleServicioService;
+    private final ServicioService servicioService;
 
     @GetMapping
     public ResponseEntity<List<DetalleServicio>> getAllDetalleServicios() {
