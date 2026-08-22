@@ -22,9 +22,6 @@ WORKDIR /app
 # Copiamos el .jar desde la etapa de build
 COPY --from=build /app/target/*.jar app.jar
 
-# Creamos el directorio donde se guardará el .db
-RUN mkdir -p /app/db
-
 # Puerto expuesto por Spring Boot
 EXPOSE 8080
 

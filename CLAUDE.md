@@ -7,10 +7,7 @@ front (`mish-one-frontend`, Angular, desplegado en Vercel).
 ## Stack
 
 - Java 21, Spring Boot 3.4.2 (`spring-boot-starter-web`, `spring-boot-starter-data-jpa`)
-- SQLite como base de datos (driver `xerial/sqlite-jdbc` + `hibernate-community-dialects`,
-  con dialecto propio en `config/SQLiteCustomDialect.java` para soportar
-  `last_insert_rowid()`)
-- AWS SDK v2 (S3) para respaldo/restauración del archivo `.db`
+- Postgres (Supabase, plan gratuito) como base de datos, vía driver `org.postgresql`
 - Lombok, Springdoc OpenAPI (Swagger UI)
 - Despliegue: Docker (`Dockerfile`, build multi-stage) sobre Render
 
@@ -33,27 +30,25 @@ Entidades (`src/main/java/com/mishone/mishone/model`):
 
 ## Particularidades importantes
 
-- **SQLite vive en un solo archivo**, cuya ruta viene de la env var `SQLITE_LOCAL_PATH`
-  (ver `application.properties`). No hay servidor de BD tradicional.
-- **Persistencia real via S3, no Git**: al arrancar, `SQLiteS3Initializer` (registrado
-  como `ApplicationContextInitializer` en `META-INF/spring.factories`, corre *antes* que
-  el contexto de Spring) descarga el `.db` desde S3 solo si `LOAD_DB=true`. `DailyBackupTask`
-  sube el archivo a S3 cada noche (cron `0 0 0 * * *`, zona `America/Bogota`).
-  `BackupController` (`/api/db/backup`, `/api/db/actualizardb`) permite disparar ambas
-  operaciones manualmente. Variables de entorno requeridas:
-  `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`, `AWS_REGION`, `S3_BUCKET_NAME`,
-  `S3_OBJECT_KEY`, `SQLITE_LOCAL_PATH`, `LOAD_DB`.
+- **Conexión a Supabase vía env vars**: `spring.datasource.url/username/password` en
+  `application.properties` leen `DB_URL`, `DB_USERNAME`, `DB_PASSWORD` (setear en Render
+  y en local). `DB_URL` es una URL JDBC (`jdbc:postgresql://...`), no la que da Supabase
+  para clientes tipo `psql`.
+- **`spring.jpa.hibernate.ddl-auto=update`**: Hibernate crea/ajusta las tablas solas a
+  partir de las entidades. Cómodo para este proyecto chico, pero implica que un cambio de
+  entidad puede alterar el esquema en producción sin pasar por una migración explícita —
+  si esto crece, considerar Flyway/Liquibase o pasar a `validate`.
 - **Auto-ping**: `AutoPingTask` golpea `/api/ping` cada 10 min contra la URL fija de
-  Render (`https://mishone-backend.onrender.com`) — es un keep-alive para el free tier,
-  no borrar sin más si se cambia de host.
+  Render (`https://mishone-backend.onrender.com`). `PingController` hace además una query
+  trivial (`ProyectoRepository.count()`) para que el proyecto de Supabase (plan gratuito)
+  no se pause por inactividad — no quitar esa query sin poner otro mecanismo de keep-alive
+  para la base.
 - **CORS**: orígenes permitidos hardcodeados en `CorsConfig`
   (`localhost:4200` y el dominio de Vercel del front). Actualizar ahí si cambia el
   dominio del frontend.
-- Hay lógica AWS S3 duplicada entre `S3UploadService`/`SQLiteS3Service` (servicios) y
-  `SQLiteS3Initializer` (config) — mismo patrón de credenciales/descarga repetido tres
-  veces; tenerlo en cuenta antes de tocar la parte de S3, para no arreglar solo una copia.
-- Carpeta `db/` (con `mishone.db`) está en el working tree pero sin trackear en git
-  (`?? db/` en status) — es el archivo local de desarrollo, no se sube al repo.
+- Ya no hay archivo `.db` local ni respaldo a S3 (se eliminó todo ese circuito:
+  `SQLiteS3Initializer`, `S3UploadService`, `SQLiteS3Service`, `DailyBackupTask`,
+  `BackupController`) — la persistencia la maneja Supabase directamente.
 
 ## Convenciones del código existente
 
